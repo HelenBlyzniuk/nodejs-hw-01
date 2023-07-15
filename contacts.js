@@ -4,18 +4,18 @@ import { nanoid } from "nanoid";
 
 const contactsPath = pass.resolve("db", "contacts.json");
 
-async function listContacts() {
+export async function listContacts() {
   const data = await fs.readFile(contactsPath, "utf-8");
   return JSON.parse(data);
 }
 
-async function getContactById(contactId) {
+export async function getContactById(contactId) {
   const contacts = await listContacts();
   const result = contacts.find((item) => item.id === contactId);
   return result || null;
 }
 
-async function removeContact(contactId) {
+export async function removeContact(contactId) {
   const contacts = await listContacts();
   const index = contacts.findIndex((item) => item.id === contactId);
   if (index === -1) {
@@ -26,7 +26,7 @@ async function removeContact(contactId) {
   return result;
 }
 
-async function addContact(name, email, phone) {
+export async function addContact(name, email, phone) {
   const contacts = await listContacts();
   const newContact = { id: nanoid(), name, email, phone };
   contacts.push(newContact);
@@ -35,7 +35,7 @@ async function addContact(name, email, phone) {
 }
 
 
-module.exports={
+export default{
 listContacts,
 removeContact,
 addContact,
